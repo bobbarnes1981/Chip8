@@ -88,6 +88,8 @@ namespace Chip8Library
             }
         }
 
+        private long m_ticks;
+
         /// <summary>
         /// Run the computer
         /// </summary>
@@ -97,14 +99,18 @@ namespace Chip8Library
             
             do
             {
-                m_vm.Step();
-                if (m_vm.SoundTimerZero)
+                if (DateTime.Now.Ticks - m_ticks > 1953) // 512kHz
                 {
-                    // make beep
-                }
-                if (m_vm.DisplayReady)
-                {
-                    // update display
+                    m_ticks = DateTime.Now.Ticks;
+                    m_vm.Step();
+                    if (m_vm.SoundTimerZero)
+                    {
+                        // make beep
+                    }
+                    if (m_vm.DisplayReady)
+                    {
+                        // update display
+                    }
                 }
             } while (m_running);
         }
