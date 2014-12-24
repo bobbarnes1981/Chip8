@@ -64,6 +64,7 @@ namespace Chip8Library
         /// <param name="keypad">Keypad interface</param>
         public Chip8CPU(Bus bus)
         {
+            m_ticks = 0;
             m_bus = bus;
             m_opcodeRegister = 0x00;
             m_registers = new byte[16];
@@ -84,6 +85,11 @@ namespace Chip8Library
         public bool DisplayReady { get; private set; }
 
         /// <summary>
+        /// Number of cycles
+        /// </summary>
+        private long m_ticks;
+
+        /// <summary>
         /// Run a cycle of the CPU
         /// </summary>
         public void Step()
@@ -98,8 +104,9 @@ namespace Chip8Library
             // process opcode
             processOpcode();
 
-            if (false) // 16ms elapsed
+            if (DateTime.Now.Ticks - m_ticks > 160000) // 16ms elapsed
             {
+                m_ticks = DateTime.Now.Ticks;
                 // update timers
                 if (m_delayTimer > 0)
                 {
@@ -431,7 +438,6 @@ namespace Chip8Library
                     {
                         if (oldBit == true)
                         {
-                            System.Diagnostics.Debug.WriteLine("Collision!");
                             m_registers[0xF] = 0x01;
                         }
 

@@ -43,6 +43,7 @@
     <Compile Include="Chip8CPU.cs" />
     <Compile Include="Computer.cs" />
     <Compile Include="FontSet.cs" />
+    <Compile Include="KeyPad.cs" />
     <Compile Include="Memory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RCA1802CPU.cs" />

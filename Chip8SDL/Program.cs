@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
+using SdlDotNet.Input;
 
 namespace Chip8SDL
 {
@@ -20,7 +21,7 @@ namespace Chip8SDL
 
         private static int m_height = 32;
 
-        private static int m_scale = 2;
+        private static int m_scale = 8;
 
         public static void Main(string[] args)
         {
@@ -35,6 +36,7 @@ namespace Chip8SDL
                 m_video = Video.SetVideoMode(m_width * m_scale, m_height * m_scale, 32, false, false, false, true);
                 Events.Quit += new EventHandler<QuitEventArgs>(ApplicationQuitEventHandler);
                 Events.Tick += new EventHandler<TickEventArgs>(ApplicationTickEventHandler);
+                Events.KeyboardDown += new EventHandler<KeyboardEventArgs>(ApplicationKeyboardEventHandler);
                 Events.Run();
 
                 m_computer.Stop();
@@ -66,6 +68,16 @@ namespace Chip8SDL
                 }
             }
             m_video.Update();
+        }
+
+        private static void ApplicationKeyboardEventHandler(object sender, KeyboardEventArgs args)
+        {
+            switch (args.Key)
+            {
+                case Key.Z:
+                    m_computer.SetKey(0x00, args.Down);
+                    break;
+            }
         }
 
         private static void ApplicationQuitEventHandler(object sender, QuitEventArgs args)

@@ -17,6 +17,11 @@ namespace Chip8Library
         private bool m_running;
 
         /// <summary>
+        /// Keypad
+        /// </summary>
+        private KeyPad m_keyPad;
+
+        /// <summary>
         /// System memory
         /// </summary>
         private Storage m_memory;
@@ -51,12 +56,23 @@ namespace Chip8Library
         /// </summary>
         public Computer()
         {
+            m_keyPad = new KeyPad();
             m_memory = new Storage(4096);
             m_video = new Video(64, 32);
 
-            m_bus = new Bus(m_memory, m_video);
+            m_bus = new Bus(m_keyPad, m_memory, m_video);
 
             m_vm = new Chip8CPU(m_bus);
+        }
+
+        /// <summary>
+        /// Set the state of a key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="state"></param>
+        public void SetKey(byte key, bool state)
+        {
+            m_keyPad.Set(key, state);
         }
 
         /// <summary>
@@ -78,7 +94,7 @@ namespace Chip8Library
         public void Run()
         {
             m_running = true;
-
+            
             do
             {
                 m_vm.Step();

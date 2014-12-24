@@ -8,12 +8,15 @@ namespace Chip8Library
 {
     public class Bus
     {
+        private KeyPad m_keyPad;
+
         private Storage m_memory;
 
         private Video m_display;
 
-        public Bus(Storage memory, Video display)
+        public Bus(KeyPad keyPad, Storage memory, Video display)
         {
+            m_keyPad = keyPad;
             m_memory = memory;
             m_display = display;
         }
@@ -45,7 +48,7 @@ namespace Chip8Library
 
         public bool KeyPadRead(byte b)
         {
-            throw new NotImplementedException();
+            return m_keyPad.Get(b);
         }
 
         public byte KeyPadWait()
