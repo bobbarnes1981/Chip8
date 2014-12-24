@@ -37,6 +37,7 @@ namespace Chip8SDL
                 Events.Quit += new EventHandler<QuitEventArgs>(ApplicationQuitEventHandler);
                 Events.Tick += new EventHandler<TickEventArgs>(ApplicationTickEventHandler);
                 Events.KeyboardDown += new EventHandler<KeyboardEventArgs>(ApplicationKeyboardEventHandler);
+                Events.KeyboardUp += new EventHandler<KeyboardEventArgs>(ApplicationKeyboardEventHandler);
                 Events.Run();
 
                 m_computer.Stop();
@@ -74,8 +75,53 @@ namespace Chip8SDL
         {
             switch (args.Key)
             {
-                case Key.Z:
+                case Key.X:
                     m_computer.SetKey(0x00, args.Down);
+                    break;
+                case Key.Keypad1:
+                    m_computer.SetKey(0x01, args.Down);
+                    break;
+                case Key.Keypad2:
+                    m_computer.SetKey(0x02, args.Down);
+                    break;
+                case Key.Keypad3:
+                    m_computer.SetKey(0x03, args.Down);
+                    break;
+                case Key.Q:
+                    m_computer.SetKey(0x04, args.Down);
+                    break;
+                case Key.W:
+                    m_computer.SetKey(0x05, args.Down);
+                    break;
+                case Key.E:
+                    m_computer.SetKey(0x06, args.Down);
+                    break;
+                case Key.A:
+                    m_computer.SetKey(0x07, args.Down);
+                    break;
+                case Key.S:
+                    m_computer.SetKey(0x08, args.Down);
+                    break;
+                case Key.D:
+                    m_computer.SetKey(0x09, args.Down);
+                    break;
+                case Key.Z:
+                    m_computer.SetKey(0x0A, args.Down);
+                    break;
+                case Key.C:
+                    m_computer.SetKey(0x0B, args.Down);
+                    break;
+                case Key.Keypad4:
+                    m_computer.SetKey(0x0C, args.Down);
+                    break;
+                case Key.R:
+                    m_computer.SetKey(0x0D, args.Down);
+                    break;
+                case Key.F:
+                    m_computer.SetKey(0x0E, args.Down);
+                    break;
+                case Key.V:
+                    m_computer.SetKey(0x0F, args.Down);
                     break;
             }
         }
